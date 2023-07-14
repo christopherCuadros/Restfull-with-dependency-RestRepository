@@ -1,6 +1,9 @@
-package com.cuadros.Restfulls8;
+package com.cuadros.Restfulls8.Carrera;
 
-import com.cuadros.Restfulls8.Carrera.Carrera;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.cuadros.Restfulls8.Curso;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -9,24 +12,31 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "curso")
-public class Curso {
+@Table(name = "carrera")
+public class Carrera {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
     private String nombre;
-    private Integer creditos;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="id_carrera")
-    private Carrera carrera;
+    @OneToMany(targetEntity = Curso.class, mappedBy ="carrera")
+    @OrderBy("nombre ASC")
+    private Set<Curso> cursos = new HashSet<Curso>();
 
-    
+
+    public Set<Curso> getCursos() {
+        return cursos;
+    }
+    public void setCursos(Set<Curso> cursos) {
+        this.cursos = cursos;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -39,11 +49,6 @@ public class Curso {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public Integer getCreditos() {
-        return creditos;
-    }
-    public void setCreditos(Integer creditos) {
-        this.creditos = creditos;
-    }
+
     
 }

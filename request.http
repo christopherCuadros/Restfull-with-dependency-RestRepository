@@ -1,3 +1,29 @@
 @server = http://localhost:8080
 
 ####
+
+GET {{server}}/curso
+
+####
+POST {{server}}/curso
+Content-Type: application/json
+
+{
+    "nombre":"Desarrollo de microservice",
+    "creditos":9
+}
+####
+
+GET {{server}}/curso/1
+
+####
+PATCH {{server}}/curso/1
+Content-Type: application/json
+
+{
+    "creditos":9
+}
+
+####
+
+GET {{server}}/curso?size=2
